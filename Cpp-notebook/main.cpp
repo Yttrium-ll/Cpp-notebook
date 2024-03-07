@@ -1,9 +1,9 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <fstream>
 #include <string>
-#include <utility>			// для move
-#include <limits>			// предельные значения числовых типов
-#include <memory>			// для умных указателей
+#include <utility>			// РґР»СЏ move
+#include <limits>			// РїСЂРµРґРµР»СЊРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ С‡РёСЃР»РѕРІС‹С… С‚РёРїРѕРІ
+#include <memory>			// РґР»СЏ СѓРјРЅС‹С… СѓРєР°Р·Р°С‚РµР»РµР№
 #include <optional>
 #include <any>
 #include <variant>
@@ -20,22 +20,22 @@
 #include "hierarchy.h"
 #include "variative_function.h"
 
-using std::cout, std::endl, std::string;		// добавление отдельных символов из namespace
-namespace fs = std::filesystem;					// псевдоним пространства имен
+using std::cout, std::endl, std::string;		// РґРѕР±Р°РІР»РµРЅРёРµ РѕС‚РґРµР»СЊРЅС‹С… СЃРёРјРІРѕР»РѕРІ РёР· namespace
+namespace fs = std::filesystem;					// РїСЃРµРІРґРѕРЅРёРј РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР° РёРјРµРЅ
 
-void get_copy(dummy d)		// принимаем аргумент по значению (копирование)
+void get_copy(dummy d)		// РїСЂРёРЅРёРјР°РµРј Р°СЂРіСѓРјРµРЅС‚ РїРѕ Р·РЅР°С‡РµРЅРёСЋ (РєРѕРїРёСЂРѕРІР°РЅРёРµ)
 {
 	cout << "From function copy: " << d.report() << endl;
 }
 
-void get_reference(dummy& d)	// принимаем аргумент по ссылке (lvalue)
+void get_reference(dummy& d)	// РїСЂРёРЅРёРјР°РµРј Р°СЂРіСѓРјРµРЅС‚ РїРѕ СЃСЃС‹Р»РєРµ (lvalue)
 {
 	cout << "From function reference: " << d.report() << endl;
 }
 
-void get_dummy(dummy&& d)	// принимаем аргумент по ссылке (rvalue)
+void get_dummy(dummy&& d)	// РїСЂРёРЅРёРјР°РµРј Р°СЂРіСѓРјРµРЅС‚ РїРѕ СЃСЃС‹Р»РєРµ (rvalue)
 {
-	dummy func_d(move(d));		// перемещаем объект d в func_d
+	dummy func_d(move(d));		// РїРµСЂРµРјРµС‰Р°РµРј РѕР±СЉРµРєС‚ d РІ func_d
 	cout << "From function move: " << func_d.report() << endl;
 }
 
@@ -45,11 +45,11 @@ std::optional<dummy> make_them_know(int x)
 	else return std::nullopt;
 }
 
-// [Lospinozo Часть 1 Глава 9]
-// decltype и auto-вывод типа
+// [Lospinozo Р§Р°СЃС‚СЊ 1 Р“Р»Р°РІР° 9]
+// decltype Рё auto-РІС‹РІРѕРґ С‚РёРїР°
 template <typename X, typename Y>
-auto add(X x, Y y) -> decltype(x + y)		// -> указывает на выражение типа, вычисляющее возвращаемый тип
-											// decltype возвращает тип выражения
+auto add(X x, Y y) -> decltype(x + y)		// -> СѓРєР°Р·С‹РІР°РµС‚ РЅР° РІС‹СЂР°Р¶РµРЅРёРµ С‚РёРїР°, РІС‹С‡РёСЃР»СЏСЋС‰РµРµ РІРѕР·РІСЂР°С‰Р°РµРјС‹Р№ С‚РёРї
+											// decltype РІРѕР·РІСЂР°С‰Р°РµС‚ С‚РёРї РІС‹СЂР°Р¶РµРЅРёСЏ
 {
 	return x + y;
 }
@@ -85,61 +85,61 @@ int main()
 {
 	cout << "Hello world" << endl;
 
-	// [Lospinozo Часть 1 Глава 3 и 6]
+	// [Lospinozo Р§Р°СЃС‚СЊ 1 Р“Р»Р°РІР° 3 Рё 6]
 	cout << endl << "Const and cast section" << endl;
 	const dummy d;
-	const dummy& pd = d;	// можно создать только const-ссылку на const-объект
-	// d.setX(1);			// у const-объекта нельзя вызвать не-const метод
-	// pd.setX(1);			// у ссылки на const-объект нельзя вызвать не-const метод
-	cout << d.report() << " const dummy has x=" << d.getX() << " and y=" << d.getY() << endl;		// у const-объекта можно вызвать только const методы
-	dummy& pdnc = const_cast<dummy&>(pd);		// pdnc теперь не константная ссылка, можно изменять объект, на которые она ссылается
+	const dummy& pd = d;	// РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ С‚РѕР»СЊРєРѕ const-СЃСЃС‹Р»РєСѓ РЅР° const-РѕР±СЉРµРєС‚
+	// d.setX(1);			// Сѓ const-РѕР±СЉРµРєС‚Р° РЅРµР»СЊР·СЏ РІС‹Р·РІР°С‚СЊ РЅРµ-const РјРµС‚РѕРґ
+	// pd.setX(1);			// Сѓ СЃСЃС‹Р»РєРё РЅР° const-РѕР±СЉРµРєС‚ РЅРµР»СЊР·СЏ РІС‹Р·РІР°С‚СЊ РЅРµ-const РјРµС‚РѕРґ
+	cout << d.report() << " const dummy has x=" << d.getX() << " and y=" << d.getY() << endl;		// Сѓ const-РѕР±СЉРµРєС‚Р° РјРѕР¶РЅРѕ РІС‹Р·РІР°С‚СЊ С‚РѕР»СЊРєРѕ const РјРµС‚РѕРґС‹
+	dummy& pdnc = const_cast<dummy&>(pd);		// pdnc С‚РµРїРµСЂСЊ РЅРµ РєРѕРЅСЃС‚Р°РЅС‚РЅР°СЏ СЃСЃС‹Р»РєР°, РјРѕР¶РЅРѕ РёР·РјРµРЅСЏС‚СЊ РѕР±СЉРµРєС‚, РЅР° РєРѕС‚РѕСЂС‹Рµ РѕРЅР° СЃСЃС‹Р»Р°РµС‚СЃСЏ
 	pdnc.setX(1);
-	cout << d.report() << " changing unchangeble" << endl;		// const-объект изменен
+	cout << d.report() << " changing unchangeble" << endl;		// const-РѕР±СЉРµРєС‚ РёР·РјРµРЅРµРЅ
 
-	// [Habr Еще раз про приведение типов в языке C++...]
-	// Си-стиль		(с числовыми типами в этом плане все ок, взяты просто для примера)
+	// [Habr Р•С‰Рµ СЂР°Р· РїСЂРѕ РїСЂРёРІРµРґРµРЅРёРµ С‚РёРїРѕРІ РІ СЏР·С‹РєРµ C++...]
+	// РЎРё-СЃС‚РёР»СЊ		(СЃ С‡РёСЃР»РѕРІС‹РјРё С‚РёРїР°РјРё РІ СЌС‚РѕРј РїР»Р°РЅРµ РІСЃРµ РѕРє, РІР·СЏС‚С‹ РїСЂРѕСЃС‚Рѕ РґР»СЏ РїСЂРёРјРµСЂР°)
 	int n = 42;
-	double dbl = (int)n;	// явное приведение - не производит никаких проверок, кроме критических случаев невозможности преобразования
-	double dbl1 = n;		// неявное приведение - не производит никаких проверок, кроме критических случаев невозможности преобразования
+	double dbl = (int)n;	// СЏРІРЅРѕРµ РїСЂРёРІРµРґРµРЅРёРµ - РЅРµ РїСЂРѕРёР·РІРѕРґРёС‚ РЅРёРєР°РєРёС… РїСЂРѕРІРµСЂРѕРє, РєСЂРѕРјРµ РєСЂРёС‚РёС‡РµСЃРєРёС… СЃР»СѓС‡Р°РµРІ РЅРµРІРѕР·РјРѕР¶РЅРѕСЃС‚Рё РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ
+	double dbl1 = n;		// РЅРµСЏРІРЅРѕРµ РїСЂРёРІРµРґРµРЅРёРµ - РЅРµ РїСЂРѕРёР·РІРѕРґРёС‚ РЅРёРєР°РєРёС… РїСЂРѕРІРµСЂРѕРє, РєСЂРѕРјРµ РєСЂРёС‚РёС‡РµСЃРєРёС… СЃР»СѓС‡Р°РµРІ РЅРµРІРѕР·РјРѕР¶РЅРѕСЃС‚Рё РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ
 	int n1 = (int)dbl;
-	string* ps = (string*)(new dummy("A string, not dummy"));		// почему бы и нет; использование такого указателя скорее всего приведет к segfault
+	string* ps = (string*)(new dummy("A string, not dummy"));		// РїРѕС‡РµРјСѓ Р±С‹ Рё РЅРµС‚; РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ С‚Р°РєРѕРіРѕ СѓРєР°Р·Р°С‚РµР»СЏ СЃРєРѕСЂРµРµ РІСЃРµРіРѕ РїСЂРёРІРµРґРµС‚ Рє segfault
 
-	// const_cast - может убирать или добавлять модификаторы const и volatile у указателей и ссылок
+	// const_cast - РјРѕР¶РµС‚ СѓР±РёСЂР°С‚СЊ РёР»Рё РґРѕР±Р°РІР»СЏС‚СЊ РјРѕРґРёС„РёРєР°С‚РѕСЂС‹ const Рё volatile Сѓ СѓРєР°Р·Р°С‚РµР»РµР№ Рё СЃСЃС‹Р»РѕРє
 	const int* cn = const_cast<const int*>(&n);
 	int* pn = const_cast<int*>(cn);
 
-	// reinterpret_cast - приведение к/из указателя: указ. -> указ.; указ. -> целое число; целое число -> указ.
+	// reinterpret_cast - РїСЂРёРІРµРґРµРЅРёРµ Рє/РёР· СѓРєР°Р·Р°С‚РµР»СЏ: СѓРєР°Р·. -> СѓРєР°Р·.; СѓРєР°Р·. -> С†РµР»РѕРµ С‡РёСЃР»Рѕ; С†РµР»РѕРµ С‡РёСЃР»Рѕ -> СѓРєР°Р·.
 	long address = 0x100042;
-	int* pointerToAnswer = reinterpret_cast<int*>(address);		// если память по адресу не читается, то разыменование указателя приведет к segfault
+	int* pointerToAnswer = reinterpret_cast<int*>(address);		// РµСЃР»Рё РїР°РјСЏС‚СЊ РїРѕ Р°РґСЂРµСЃСѓ РЅРµ С‡РёС‚Р°РµС‚СЃСЏ, С‚Рѕ СЂР°Р·С‹РјРµРЅРѕРІР°РЅРёРµ СѓРєР°Р·Р°С‚РµР»СЏ РїСЂРёРІРµРґРµС‚ Рє segfault
 	long addr = reinterpret_cast<long>(&n);
 
-	// static_cast - более безопасный аналог Си-подобного преобразования
+	// static_cast - Р±РѕР»РµРµ Р±РµР·РѕРїР°СЃРЅС‹Р№ Р°РЅР°Р»РѕРі РЎРё-РїРѕРґРѕР±РЅРѕРіРѕ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ
 	double dbl2 = static_cast<double>(n);
-	//string* ps1 = static_cast<string*>(new dummy());	// указатели разных классов не приводятся, если они не находятся в одной иерархии наследования
+	//string* ps1 = static_cast<string*>(new dummy());	// СѓРєР°Р·Р°С‚РµР»Рё СЂР°Р·РЅС‹С… РєР»Р°СЃСЃРѕРІ РЅРµ РїСЂРёРІРѕРґСЏС‚СЃСЏ, РµСЃР»Рё РѕРЅРё РЅРµ РЅР°С…РѕРґСЏС‚СЃСЏ РІ РѕРґРЅРѕР№ РёРµСЂР°СЂС…РёРё РЅР°СЃР»РµРґРѕРІР°РЅРёСЏ
 
-	// dynamic_cast - приведение указателей и ссылок классов в иерархии наследования
+	// dynamic_cast - РїСЂРёРІРµРґРµРЅРёРµ СѓРєР°Р·Р°С‚РµР»РµР№ Рё СЃСЃС‹Р»РѕРє РєР»Р°СЃСЃРѕРІ РІ РёРµСЂР°СЂС…РёРё РЅР°СЃР»РµРґРѕРІР°РЅРёСЏ
 	king* pk = new king();
 	heir* ph = new heir();
 
-	// если приведение ошибочно, возвращается пустой указатель
-	king* newKing = dynamic_cast<king*>(ph);		// допускается приведение вверх по иерархии
+	// РµСЃР»Рё РїСЂРёРІРµРґРµРЅРёРµ РѕС€РёР±РѕС‡РЅРѕ, РІРѕР·РІСЂР°С‰Р°РµС‚СЃСЏ РїСѓСЃС‚РѕР№ СѓРєР°Р·Р°С‚РµР»СЊ
+	king* newKing = dynamic_cast<king*>(ph);		// РґРѕРїСѓСЃРєР°РµС‚СЃСЏ РїСЂРёРІРµРґРµРЅРёРµ РІРІРµСЂС… РїРѕ РёРµСЂР°СЂС…РёРё
 	if (!newKing) cout << "No king in kindom!" << endl;
-	heir* abducted = dynamic_cast<heir*>(pk);		// не допускается приведение вниз по иерархии
+	heir* abducted = dynamic_cast<heir*>(pk);		// РЅРµ РґРѕРїСѓСЃРєР°РµС‚СЃСЏ РїСЂРёРІРµРґРµРЅРёРµ РІРЅРёР· РїРѕ РёРµСЂР°СЂС…РёРё
 	if (!abducted) cout << "Old king ran away!" << endl;
 
-	dummy* pdk = dynamic_cast<dummy*>(pk);			// не допускается приведение в разных иерархиях наследования
+	dummy* pdk = dynamic_cast<dummy*>(pk);			// РЅРµ РґРѕРїСѓСЃРєР°РµС‚СЃСЏ РїСЂРёРІРµРґРµРЅРёРµ РІ СЂР°Р·РЅС‹С… РёРµСЂР°СЂС…РёСЏС… РЅР°СЃР»РµРґРѕРІР°РЅРёСЏ
 	if (!pdk) cout << "King will never be a peasant!" << endl;
-	//king* ps1 = dynamic_cast<king*>(pdk);			// не приводится на этапе компиляции, если приводимый класс не являются полиморфными
+	//king* ps1 = dynamic_cast<king*>(pdk);			// РЅРµ РїСЂРёРІРѕРґРёС‚СЃСЏ РЅР° СЌС‚Р°РїРµ РєРѕРјРїРёР»СЏС†РёРё, РµСЃР»Рё РїСЂРёРІРѕРґРёРјС‹Р№ РєР»Р°СЃСЃ РЅРµ СЏРІР»СЏСЋС‚СЃСЏ РїРѕР»РёРјРѕСЂС„РЅС‹РјРё
 
 	cout << endl << "Dummy test" << endl;
 	dummy d1(5, 2, "John");
 	d1.setX(4);
 	cout << d1.report() << " ratio: " << d1.ratio() << endl;
 
-	// [Lospinozo Часть 1 Глава 4]
+	// [Lospinozo Р§Р°СЃС‚СЊ 1 Р“Р»Р°РІР° 4]
 	cout << endl << "Exception section" << endl;
 	d1.setY(0);
-	// пример ловли исключений
+	// РїСЂРёРјРµСЂ Р»РѕРІР»Рё РёСЃРєР»СЋС‡РµРЅРёР№
 	try
 	{
 		cout << d1.report() << " ratio: " << d1.ratio() << endl;
@@ -149,148 +149,148 @@ int main()
 		cout << err.what() << endl;
 	}
 
-	// [Lospinozo Часть 1 Глава 8]
+	// [Lospinozo Р§Р°СЃС‚СЊ 1 Р“Р»Р°РІР° 8]
 	cout << endl << "Structure unpacking section" << endl;
 	d1.set(3, 2);
 	cout << d1.report();
-	// пример структурированной привязки
-	auto [res, exact] = d1.check_ratio();		// распаковка POD
+	// РїСЂРёРјРµСЂ СЃС‚СЂСѓРєС‚СѓСЂРёСЂРѕРІР°РЅРЅРѕР№ РїСЂРёРІСЏР·РєРё
+	auto [res, exact] = d1.check_ratio();		// СЂР°СЃРїР°РєРѕРІРєР° POD
 	if (exact) cout << " ratio: " << res << endl;
 	else cout << " Exact ratio is not integer" << endl;
 
 	cout << endl << "if init section" << endl;
-	if (dummy d2(42, 4, "Jack"); d2.getX() == 42)		// блок инициализации в if
+	if (dummy d2(42, 4, "Jack"); d2.getX() == 42)		// Р±Р»РѕРє РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РІ if
 		cout << d2.report() << " has answer to The Main Question of The Universe and All" << std::endl;
 	else cout << d2.report() << " has no answer" << endl;
-	// d2.getY();		// область видимости ограничена блоком if
+	// d2.getY();		// РѕР±Р»Р°СЃС‚СЊ РІРёРґРёРјРѕСЃС‚Рё РѕРіСЂР°РЅРёС‡РµРЅР° Р±Р»РѕРєРѕРј if
 
-	// [Lospinozo Часть 1 Глава 4]
+	// [Lospinozo Р§Р°СЃС‚СЊ 1 Р“Р»Р°РІР° 4]
 	cout << endl << "Copy and move section" << endl;
 	get_copy(d1);
 	get_reference(d1);
 	get_dummy(move(d1));
 	cout << "Previos place of moved: " << d1.report() << endl;
 
-	// [Lospinozo Часть 1 Глава 7]
+	// [Lospinozo Р§Р°СЃС‚СЊ 1 Р“Р»Р°РІР° 7]
 	cout << endl << "Max numeric values section" << endl;
 	cout << "Max short: " << std::numeric_limits<short>::max() << endl;
 	cout << "Max int: " << std::numeric_limits<int>::max() << endl;
 	cout << "Max float: " << std::numeric_limits<float>::max() << endl;
 	cout << "Max double: " << std::numeric_limits<double>::max() << endl;
 
-	// [Lospinozo Часть 1 Глава 9]
+	// [Lospinozo Р§Р°СЃС‚СЊ 1 Р“Р»Р°РІР° 9]
 	cout << endl << "Variative function section" << endl;
 	cout << "The answer is " << sum<int>(2, 4, 6, 8, 10, 12) << endl;
 
 	cout << endl << "Callable object section" << endl;
-	d();					// вызываем объект
-	dummy d0("Robert");		// конструктор отличается от оператора вызова наличием объявления типа
-	d0("Hi");				// вызываем объект
+	d();					// РІС‹Р·С‹РІР°РµРј РѕР±СЉРµРєС‚
+	dummy d0("Robert");		// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РѕС‚Р»РёС‡Р°РµС‚СЃСЏ РѕС‚ РѕРїРµСЂР°С‚РѕСЂР° РІС‹Р·РѕРІР° РЅР°Р»РёС‡РёРµРј РѕР±СЉСЏРІР»РµРЅРёСЏ С‚РёРїР°
+	d0("Hi");				// РІС‹Р·С‹РІР°РµРј РѕР±СЉРµРєС‚
 	dummy df("Semi-function");
-	d0.action = df;			// std::function можно присвоить callable объект (происходит копирование)
+	d0.action = df;			// std::function РјРѕР¶РЅРѕ РїСЂРёСЃРІРѕРёС‚СЊ callable РѕР±СЉРµРєС‚ (РїСЂРѕРёСЃС…РѕРґРёС‚ РєРѕРїРёСЂРѕРІР°РЅРёРµ)
 	d0.takeAction();
 
 	cout << endl << "Lambda functions section" << endl;
-	auto lambdaFunc = []() {cout << "Hi from lambda!" << endl; };							// лямбды могут быть присвоены либо указателям на функции, либо переменной auto
-	auto lambdaCapture = [d]() {cout << "Captured by copy - " << d.report() << endl; };		// переменная d находится в лямбда-захвате - копируется в объект лямбда-функции
+	auto lambdaFunc = []() {cout << "Hi from lambda!" << endl; };							// Р»СЏРјР±РґС‹ РјРѕРіСѓС‚ Р±С‹С‚СЊ РїСЂРёСЃРІРѕРµРЅС‹ Р»РёР±Рѕ СѓРєР°Р·Р°С‚РµР»СЏРј РЅР° С„СѓРЅРєС†РёРё, Р»РёР±Рѕ РїРµСЂРµРјРµРЅРЅРѕР№ auto
+	auto lambdaCapture = [d]() {cout << "Captured by copy - " << d.report() << endl; };		// РїРµСЂРµРјРµРЅРЅР°СЏ d РЅР°С…РѕРґРёС‚СЃСЏ РІ Р»СЏРјР±РґР°-Р·Р°С…РІР°С‚Рµ - РєРѕРїРёСЂСѓРµС‚СЃСЏ РІ РѕР±СЉРµРєС‚ Р»СЏРјР±РґР°-С„СѓРЅРєС†РёРё
 	lambdaFunc();
 	d0.action = lambdaCapture;
 	d0.takeAction();
-	d0.action = [&d]() {cout << "Captured by ref - " << d.report() << endl; };		// захват переменной d по ссылке
+	d0.action = [&d]() {cout << "Captured by ref - " << d.report() << endl; };		// Р·Р°С…РІР°С‚ РїРµСЂРµРјРµРЅРЅРѕР№ d РїРѕ СЃСЃС‹Р»РєРµ
 	d0.takeAction();
-	d0.distance = [](int x1, int y1) { return  x1 + y1; };							// можно присвоить лямбду напрямую указателю
-	d0.distance = [](int x1, int y1) -> int { return  x1 / y1; };					// -> int - явное указание типа возвращаемого значения
-	auto templateLambda = [](auto x) {cout << "auto report: " << x; };				// использование auto как типа аргумента превращает лямбду в шаблон
-	d0.makeCustomReport(templateLambda, "some string");			// второй аргумент шаблонированной функции передается лямбде
+	d0.distance = [](int x1, int y1) { return  x1 + y1; };							// РјРѕР¶РЅРѕ РїСЂРёСЃРІРѕРёС‚СЊ Р»СЏРјР±РґСѓ РЅР°РїСЂСЏРјСѓСЋ СѓРєР°Р·Р°С‚РµР»СЋ
+	d0.distance = [](int x1, int y1) -> int { return  x1 / y1; };					// -> int - СЏРІРЅРѕРµ СѓРєР°Р·Р°РЅРёРµ С‚РёРїР° РІРѕР·РІСЂР°С‰Р°РµРјРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ
+	auto templateLambda = [](auto x) {cout << "auto report: " << x; };				// РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ auto РєР°Рє С‚РёРїР° Р°СЂРіСѓРјРµРЅС‚Р° РїСЂРµРІСЂР°С‰Р°РµС‚ Р»СЏРјР±РґСѓ РІ С€Р°Р±Р»РѕРЅ
+	d0.makeCustomReport(templateLambda, "some string");			// РІС‚РѕСЂРѕР№ Р°СЂРіСѓРјРµРЅС‚ С€Р°Р±Р»РѕРЅРёСЂРѕРІР°РЅРЅРѕР№ С„СѓРЅРєС†РёРё РїРµСЂРµРґР°РµС‚СЃСЏ Р»СЏРјР±РґРµ
 	d0.makeCustomReport(templateLambda, 42);
 
-	// [Lospinozo Часть 2 Глава 11]
+	// [Lospinozo Р§Р°СЃС‚СЊ 2 Р“Р»Р°РІР° 11]
 	cout << endl << "Smart pointers section" << endl;
-	// уникальный указатель - запрет на копирование
-	std::unique_ptr<dummy> upd(new dummy("Captain Jack Sparrow"));		// передаем указатель в конструктор умного указателя
+	// СѓРЅРёРєР°Р»СЊРЅС‹Р№ СѓРєР°Р·Р°С‚РµР»СЊ - Р·Р°РїСЂРµС‚ РЅР° РєРѕРїРёСЂРѕРІР°РЅРёРµ
+	std::unique_ptr<dummy> upd(new dummy("Captain Jack Sparrow"));		// РїРµСЂРµРґР°РµРј СѓРєР°Р·Р°С‚РµР»СЊ РІ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СѓРјРЅРѕРіРѕ СѓРєР°Р·Р°С‚РµР»СЏ
 	cout << upd->report() << " accessed from unique pointer" << endl;
-	using uniqueDummyPtr = std::unique_ptr<dummy>;		// можно использовать псевдоним
+	using uniqueDummyPtr = std::unique_ptr<dummy>;		// РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РїСЃРµРІРґРѕРЅРёРј
 	{
-		// upd1 существует только в этой области и будет автоматически уничтожен указателем при выходе
-		uniqueDummyPtr upd1 = std::make_unique<dummy>("Arthur The King");	// make_unique конструирует объект с аргументами, переданными ему
+		// upd1 СЃСѓС‰РµСЃС‚РІСѓРµС‚ С‚РѕР»СЊРєРѕ РІ СЌС‚РѕР№ РѕР±Р»Р°СЃС‚Рё Рё Р±СѓРґРµС‚ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё СѓРЅРёС‡С‚РѕР¶РµРЅ СѓРєР°Р·Р°С‚РµР»РµРј РїСЂРё РІС‹С…РѕРґРµ
+		uniqueDummyPtr upd1 = std::make_unique<dummy>("Arthur The King");	// make_unique РєРѕРЅСЃС‚СЂСѓРёСЂСѓРµС‚ РѕР±СЉРµРєС‚ СЃ Р°СЂРіСѓРјРµРЅС‚Р°РјРё, РїРµСЂРµРґР°РЅРЅС‹РјРё РµРјСѓ
 	}
-	//uniqueDummyPtr cupd = upd;			// уникальный указатель нельзя скопировать
-	uniqueDummyPtr mupd(std::move(upd));	// но его можно перенести
+	//uniqueDummyPtr cupd = upd;			// СѓРЅРёРєР°Р»СЊРЅС‹Р№ СѓРєР°Р·Р°С‚РµР»СЊ РЅРµР»СЊР·СЏ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ
+	uniqueDummyPtr mupd(std::move(upd));	// РЅРѕ РµРіРѕ РјРѕР¶РЅРѕ РїРµСЂРµРЅРµСЃС‚Рё
 	cout << mupd->report() << " accessed from moved unique pointer" << endl;
-	//cout << upd->report() << endl;				// вызовет исключение - объекта у этого указателя уже нет
+	//cout << upd->report() << endl;				// РІС‹Р·РѕРІРµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ - РѕР±СЉРµРєС‚Р° Сѓ СЌС‚РѕРіРѕ СѓРєР°Р·Р°С‚РµР»СЏ СѓР¶Рµ РЅРµС‚
 
-	// общий указатель - можно перемещать и копировать, последний указатель уничтожает объект
+	// РѕР±С‰РёР№ СѓРєР°Р·Р°С‚РµР»СЊ - РјРѕР¶РЅРѕ РїРµСЂРµРјРµС‰Р°С‚СЊ Рё РєРѕРїРёСЂРѕРІР°С‚СЊ, РїРѕСЃР»РµРґРЅРёР№ СѓРєР°Р·Р°С‚РµР»СЊ СѓРЅРёС‡С‚РѕР¶Р°РµС‚ РѕР±СЉРµРєС‚
 	std::shared_ptr<dummy> spd = std::make_shared<dummy>("Monica");
 	cout << spd->report() << " accessed from shared pointer" << endl;
 
 	using dummyPtr = std::shared_ptr<dummy>;
 	{
-		dummyPtr spd1 = spd;		// копируем общий указатель
+		dummyPtr spd1 = spd;		// РєРѕРїРёСЂСѓРµРј РѕР±С‰РёР№ СѓРєР°Р·Р°С‚РµР»СЊ
 		cout << spd1->report() << " accessed from other pointer" << endl;
-		// объект не уничтожен, так как на него еще указывает spd1
+		// РѕР±СЉРµРєС‚ РЅРµ СѓРЅРёС‡С‚РѕР¶РµРЅ, С‚Р°Рє РєР°Рє РЅР° РЅРµРіРѕ РµС‰Рµ СѓРєР°Р·С‹РІР°РµС‚ spd1
 	}
 
-	// слабый указатель - временное владение объектом
-	std::weak_ptr<dummy> wpd(spd);		// слабый указатель можно инициализировать только общим указателем
-	//wpd->report();					// через слабый указатель нельзя обратиться к объекту
-	std::shared_ptr<dummy> ptr = wpd.lock();		// функция lock дает доступ к объекту через общий указатель, если объект еще существует
+	// СЃР»Р°Р±С‹Р№ СѓРєР°Р·Р°С‚РµР»СЊ - РІСЂРµРјРµРЅРЅРѕРµ РІР»Р°РґРµРЅРёРµ РѕР±СЉРµРєС‚РѕРј
+	std::weak_ptr<dummy> wpd(spd);		// СЃР»Р°Р±С‹Р№ СѓРєР°Р·Р°С‚РµР»СЊ РјРѕР¶РЅРѕ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊ С‚РѕР»СЊРєРѕ РѕР±С‰РёРј СѓРєР°Р·Р°С‚РµР»РµРј
+	//wpd->report();					// С‡РµСЂРµР· СЃР»Р°Р±С‹Р№ СѓРєР°Р·Р°С‚РµР»СЊ РЅРµР»СЊР·СЏ РѕР±СЂР°С‚РёС‚СЊСЃСЏ Рє РѕР±СЉРµРєС‚Сѓ
+	std::shared_ptr<dummy> ptr = wpd.lock();		// С„СѓРЅРєС†РёСЏ lock РґР°РµС‚ РґРѕСЃС‚СѓРї Рє РѕР±СЉРµРєС‚Сѓ С‡РµСЂРµР· РѕР±С‰РёР№ СѓРєР°Р·Р°С‚РµР»СЊ, РµСЃР»Рё РѕР±СЉРµРєС‚ РµС‰Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚
 	cout << ptr->report() << " accessed from weak pointer" << endl;
 
 	using weakDummyPtr = std::weak_ptr<dummy>;
 	{
-		dummyPtr sd = std::make_shared<dummy>("Orlando");		// sd существует только здесь и будет уничтожен при выходе из области
+		dummyPtr sd = std::make_shared<dummy>("Orlando");		// sd СЃСѓС‰РµСЃС‚РІСѓРµС‚ С‚РѕР»СЊРєРѕ Р·РґРµСЃСЊ Рё Р±СѓРґРµС‚ СѓРЅРёС‡С‚РѕР¶РµРЅ РїСЂРё РІС‹С…РѕРґРµ РёР· РѕР±Р»Р°СЃС‚Рё
 		wpd = sd;
 	}
-	ptr = wpd.lock();		// ptr == nullptr, так как объект, на который указывает слабый указатель, уничтожен
+	ptr = wpd.lock();		// ptr == nullptr, С‚Р°Рє РєР°Рє РѕР±СЉРµРєС‚, РЅР° РєРѕС‚РѕСЂС‹Р№ СѓРєР°Р·С‹РІР°РµС‚ СЃР»Р°Р±С‹Р№ СѓРєР°Р·Р°С‚РµР»СЊ, СѓРЅРёС‡С‚РѕР¶РµРЅ
 	if (!ptr)
 		cout << "Dummy, which weak pointer points to, expired" << endl;
 
-	// [Lospinozo Часть 2 Глава 12]
+	// [Lospinozo Р§Р°СЃС‚СЊ 2 Р“Р»Р°РІР° 12]
 	cout << endl << "Optional section" << endl;
-	std::optional<dummy> opt = make_them_know(42);		// optional реализует значение, которое может отсутствовать
-	dummy savant = opt.value();							// доступ к объекту; исключение, если объекта нет
+	std::optional<dummy> opt = make_them_know(42);		// optional СЂРµР°Р»РёР·СѓРµС‚ Р·РЅР°С‡РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ РјРѕР¶РµС‚ РѕС‚СЃСѓС‚СЃС‚РІРѕРІР°С‚СЊ
+	dummy savant = opt.value();							// РґРѕСЃС‚СѓРї Рє РѕР±СЉРµРєС‚Сѓ; РёСЃРєР»СЋС‡РµРЅРёРµ, РµСЃР»Рё РѕР±СЉРµРєС‚Р° РЅРµС‚
 	cout << savant.report() << " You give the right answer!" << endl;
 	std::optional<dummy> opt2 = make_them_know(41);
-	if (!opt2) cout << "Wrong answer!" << endl;			// отсутсвие объекта можно проверить простым приведением к bool
+	if (!opt2) cout << "Wrong answer!" << endl;			// РѕС‚СЃСѓС‚СЃРІРёРµ РѕР±СЉРµРєС‚Р° РјРѕР¶РЅРѕ РїСЂРѕРІРµСЂРёС‚СЊ РїСЂРѕСЃС‚С‹Рј РїСЂРёРІРµРґРµРЅРёРµРј Рє bool
 
 	cout << endl << "Pair and unpacking section" << endl;
 	std::pair<int, string> theKnowlenge(42, "Answer");
-	auto& [num, str] = theKnowlenge;		// распаковываем pair с помощью структурированной привязки
+	auto& [num, str] = theKnowlenge;		// СЂР°СЃРїР°РєРѕРІС‹РІР°РµРј pair СЃ РїРѕРјРѕС‰СЊСЋ СЃС‚СЂСѓРєС‚СѓСЂРёСЂРѕРІР°РЅРЅРѕР№ РїСЂРёРІСЏР·РєРё
 	cout << str << ": " << num << endl;
 
 	cout << endl << "Tuple section" << endl;
-	// tuple - кортеж, обобщение pair на произвольное количество разнородных элементов
+	// tuple - РєРѕСЂС‚РµР¶, РѕР±РѕР±С‰РµРЅРёРµ pair РЅР° РїСЂРѕРёР·РІРѕР»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЂР°Р·РЅРѕСЂРѕРґРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ
 	std::tuple<string, string, string> word("The Oak", "The Crown", "The Crow");
-	// Для доступа используется std::get<i>, где i - индекс элемента
+	// Р”Р»СЏ РґРѕСЃС‚СѓРїР° РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ std::get<i>, РіРґРµ i - РёРЅРґРµРєСЃ СЌР»РµРјРµРЅС‚Р°
 	cout << std::get<0>(word) << " there stands with heavy " << std::get<1>(word) << " and " << std::get<2>(word) << " upon them" << endl;
 
-	std::tuple knowledge(true, "Answer", 42);		// можно использовать автовывод типов в шаблоне
-	if (std::get<bool>(knowledge))					// если нет повторяющихся по типу элементов, то get можно передавать желаемый тип
+	std::tuple knowledge(true, "Answer", 42);		// РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р°РІС‚РѕРІС‹РІРѕРґ С‚РёРїРѕРІ РІ С€Р°Р±Р»РѕРЅРµ
+	if (std::get<bool>(knowledge))					// РµСЃР»Рё РЅРµС‚ РїРѕРІС‚РѕСЂСЏСЋС‰РёС…СЃСЏ РїРѕ С‚РёРїСѓ СЌР»РµРјРµРЅС‚РѕРІ, С‚Рѕ get РјРѕР¶РЅРѕ РїРµСЂРµРґР°РІР°С‚СЊ Р¶РµР»Р°РµРјС‹Р№ С‚РёРї
 		cout << std::get<const char*>(knowledge) << ": " << std::get<int>(knowledge) << endl;
-	auto& [flag, str1, num1] = knowledge;			// распаковываем tuple с помощью структурированной привязки
+	auto& [flag, str1, num1] = knowledge;			// СЂР°СЃРїР°РєРѕРІС‹РІР°РµРј tuple СЃ РїРѕРјРѕС‰СЊСЋ СЃС‚СЂСѓРєС‚СѓСЂРёСЂРѕРІР°РЅРЅРѕР№ РїСЂРёРІСЏР·РєРё
 	if (flag)
 		cout << str1 << ": " << num1 << endl;
 
 	cout << endl << "Any section" << endl;
-	std::any shapeshifter;							// класс, хранящий отдельные значения любого типа
-	shapeshifter.emplace<int>(42);					// метод emplace конструирует в any объект указанного типа
-	int num2 = std::any_cast<int>(shapeshifter);	// приведение к исходному типу
+	std::any shapeshifter;							// РєР»Р°СЃСЃ, С…СЂР°РЅСЏС‰РёР№ РѕС‚РґРµР»СЊРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ Р»СЋР±РѕРіРѕ С‚РёРїР°
+	shapeshifter.emplace<int>(42);					// РјРµС‚РѕРґ emplace РєРѕРЅСЃС‚СЂСѓРёСЂСѓРµС‚ РІ any РѕР±СЉРµРєС‚ СѓРєР°Р·Р°РЅРЅРѕРіРѕ С‚РёРїР°
+	int num2 = std::any_cast<int>(shapeshifter);	// РїСЂРёРІРµРґРµРЅРёРµ Рє РёСЃС…РѕРґРЅРѕРјСѓ С‚РёРїСѓ
 	cout << "Shapeshifter turned to int " << num2 << endl;
 	try
 	{
-		float fl = std::any_cast<float>(shapeshifter);		// в случае несовпадения типов генерируется исключение
+		float fl = std::any_cast<float>(shapeshifter);		// РІ СЃР»СѓС‡Р°Рµ РЅРµСЃРѕРІРїР°РґРµРЅРёСЏ С‚РёРїРѕРІ РіРµРЅРµСЂРёСЂСѓРµС‚СЃСЏ РёСЃРєР»СЋС‡РµРЅРёРµ
 	}
 	catch (const std::bad_any_cast & err)
 	{
 		cout << "Shapeshifter refused to turn into float: " << err.what() << endl;
 	}
-	std::any shapeshifter2 = std::make_any<dummy>("The Doppelganger Junior");		// можно создать any в одну строчку
+	std::any shapeshifter2 = std::make_any<dummy>("The Doppelganger Junior");		// РјРѕР¶РЅРѕ СЃРѕР·РґР°С‚СЊ any РІ РѕРґРЅСѓ СЃС‚СЂРѕС‡РєСѓ
 	shapeshifter.emplace<dummy>("The Doppelganger");
 	cout << "Shapeshifter now in " << shapeshifter.type().name() << " shape!" << endl;
 	cout << std::any_cast<dummy>(shapeshifter).report() << " shifting the shape" << endl;
 	try
 	{
-		int num2 = std::any_cast<int>(shapeshifter);		// старое значение int уничтожено
+		int num2 = std::any_cast<int>(shapeshifter);		// СЃС‚Р°СЂРѕРµ Р·РЅР°С‡РµРЅРёРµ int СѓРЅРёС‡С‚РѕР¶РµРЅРѕ
 	}
 	catch (const std::bad_any_cast & err)
 	{
@@ -298,20 +298,20 @@ int main()
 	}
 
 	cout << endl << "Variant section" << endl;
-	std::variant<int, float, dummy> lawfulShapeshifter;		// класс, хранящий отдельные значения любого типа, которые указываются заранее
-	lawfulShapeshifter.emplace<int>(42);					// метод emplace конструирует в variant объект указанного типа
-	cout << "LawfulShapeshifter turned to int " << std::get<int>(lawfulShapeshifter) << endl;		// приведение к исходному типу
+	std::variant<int, float, dummy> lawfulShapeshifter;		// РєР»Р°СЃСЃ, С…СЂР°РЅСЏС‰РёР№ РѕС‚РґРµР»СЊРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ Р»СЋР±РѕРіРѕ С‚РёРїР°, РєРѕС‚РѕСЂС‹Рµ СѓРєР°Р·С‹РІР°СЋС‚СЃСЏ Р·Р°СЂР°РЅРµРµ
+	lawfulShapeshifter.emplace<int>(42);					// РјРµС‚РѕРґ emplace РєРѕРЅСЃС‚СЂСѓРёСЂСѓРµС‚ РІ variant РѕР±СЉРµРєС‚ СѓРєР°Р·Р°РЅРЅРѕРіРѕ С‚РёРїР°
+	cout << "LawfulShapeshifter turned to int " << std::get<int>(lawfulShapeshifter) << endl;		// РїСЂРёРІРµРґРµРЅРёРµ Рє РёСЃС…РѕРґРЅРѕРјСѓ С‚РёРїСѓ
 	lawfulShapeshifter.emplace<float>(4.2f);
-	cout << "LawfulShapeshifter turned to float " << std::get<1>(lawfulShapeshifter) << endl;		// можно использовать индекс типа в перечислении типов в шаблоне
+	cout << "LawfulShapeshifter turned to float " << std::get<1>(lawfulShapeshifter) << endl;		// РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РёРЅРґРµРєСЃ С‚РёРїР° РІ РїРµСЂРµС‡РёСЃР»РµРЅРёРё С‚РёРїРѕРІ РІ С€Р°Р±Р»РѕРЅРµ
 	lawfulShapeshifter.emplace<dummy>(4, 2, "The Doppelganger Senior");
-	if (lawfulShapeshifter.index() == 2)					// доступ к индексу текущего типа в перечислении типов в шаблоне
+	if (lawfulShapeshifter.index() == 2)					// РґРѕСЃС‚СѓРї Рє РёРЅРґРµРєСЃСѓ С‚РµРєСѓС‰РµРіРѕ С‚РёРїР° РІ РїРµСЂРµС‡РёСЃР»РµРЅРёРё С‚РёРїРѕРІ РІ С€Р°Р±Р»РѕРЅРµ
 	{
 		dummy lsspd = std::get<dummy>(lawfulShapeshifter);
 		cout << lsspd.report() << " shifting the shape" << endl;
 	}
 	try
 	{
-		int num2 = std::get<int>(lawfulShapeshifter);		// неправильное приведение генерирует исключение
+		int num2 = std::get<int>(lawfulShapeshifter);		// РЅРµРїСЂР°РІРёР»СЊРЅРѕРµ РїСЂРёРІРµРґРµРЅРёРµ РіРµРЅРµСЂРёСЂСѓРµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ
 	}
 	catch (const std::bad_variant_access & err)
 	{
@@ -321,129 +321,129 @@ int main()
 	cout << endl << "Complex number section" << endl;
 	std::complex a(0.5, 1.0);
 	cout << "We have complex number " << std::real(a) << " + " << std::imag(a) << "*i" << endl;
-	// complex с помощью внешниех функций поддерживает все мат. операции над комплексными числами (см. справку)
+	// complex СЃ РїРѕРјРѕС‰СЊСЋ РІРЅРµС€РЅРёРµС… С„СѓРЅРєС†РёР№ РїРѕРґРґРµСЂР¶РёРІР°РµС‚ РІСЃРµ РјР°С‚. РѕРїРµСЂР°С†РёРё РЅР°Рґ РєРѕРјРїР»РµРєСЃРЅС‹РјРё С‡РёСЃР»Р°РјРё (СЃРј. СЃРїСЂР°РІРєСѓ)
 
 	cout << endl << "Pseudorandom section" << endl;
-	std::mt19937_64 oracle(91586);			// генератор псевдослучайных чисел - вихрь Мерсенна
-											// инициализируется зерном, которое задает константную при этом зерне псевдослучайную последовательность
-	if (auto n = oracle(); n == 8346843996631475880) cout << "I guessed first: " << n << endl;		// если известно зерно, последовательность детерминирована
+	std::mt19937_64 oracle(91586);			// РіРµРЅРµСЂР°С‚РѕСЂ РїСЃРµРІРґРѕСЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР» - РІРёС…СЂСЊ РњРµСЂСЃРµРЅРЅР°
+											// РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚СЃСЏ Р·РµСЂРЅРѕРј, РєРѕС‚РѕСЂРѕРµ Р·Р°РґР°РµС‚ РєРѕРЅСЃС‚Р°РЅС‚РЅСѓСЋ РїСЂРё СЌС‚РѕРј Р·РµСЂРЅРµ РїСЃРµРІРґРѕСЃР»СѓС‡Р°Р№РЅСѓСЋ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ
+	if (auto n = oracle(); n == 8346843996631475880) cout << "I guessed first: " << n << endl;		// РµСЃР»Рё РёР·РІРµСЃС‚РЅРѕ Р·РµСЂРЅРѕ, РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ РґРµС‚РµСЂРјРёРЅРёСЂРѕРІР°РЅР°
 	if (auto n = oracle(); n == 2237671392849523263) cout << "I guessed second: " << n << endl;
 	if (auto n = oracle(); n == 7333164488732543658) cout << "I guessed third: " << n << endl;
 
-	std::uniform_int_distribution uniform(0, 10);				// равномерное распределение целых чисел от 0 до 10
+	std::uniform_int_distribution uniform(0, 10);				// СЂР°РІРЅРѕРјРµСЂРЅРѕРµ СЂР°СЃРїСЂРµРґРµР»РµРЅРёРµ С†РµР»С‹С… С‡РёСЃРµР» РѕС‚ 0 РґРѕ 10
 	cout << "10 random numbers from 0 to 10:" << endl;
 	for (size_t i = 0; i < 10; i++)
-		cout << uniform(oracle) << " ";							// получаем число вызовом объекта с передачей генератора псевдослучайных чисел
-	cout << endl << "It was 6 9 10 1 1 7 9 9 2 10" << endl;		// последовательность детерминирована
-	// в stdlib random представлены наиболее часто используемые распределения (равномерное, нормальное, хи-квадрат, Коши, Фишера, Стьюдента, Бернулли, биномиальное, Пуассона и др.)
+		cout << uniform(oracle) << " ";							// РїРѕР»СѓС‡Р°РµРј С‡РёСЃР»Рѕ РІС‹Р·РѕРІРѕРј РѕР±СЉРµРєС‚Р° СЃ РїРµСЂРµРґР°С‡РµР№ РіРµРЅРµСЂР°С‚РѕСЂР° РїСЃРµРІРґРѕСЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР»
+	cout << endl << "It was 6 9 10 1 1 7 9 9 2 10" << endl;		// РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ РґРµС‚РµСЂРјРёРЅРёСЂРѕРІР°РЅР°
+	// РІ stdlib random РїСЂРµРґСЃС‚Р°РІР»РµРЅС‹ РЅР°РёР±РѕР»РµРµ С‡Р°СЃС‚Рѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂР°СЃРїСЂРµРґРµР»РµРЅРёСЏ (СЂР°РІРЅРѕРјРµСЂРЅРѕРµ, РЅРѕСЂРјР°Р»СЊРЅРѕРµ, С…Рё-РєРІР°РґСЂР°С‚, РљРѕС€Рё, Р¤РёС€РµСЂР°, РЎС‚СЊСЋРґРµРЅС‚Р°, Р‘РµСЂРЅСѓР»Р»Рё, Р±РёРЅРѕРјРёР°Р»СЊРЅРѕРµ, РџСѓР°СЃСЃРѕРЅР° Рё РґСЂ.)
 
-	// [Lospinozo Часть 2 Глава 13]
+	// [Lospinozo Р§Р°СЃС‚СЊ 2 Р“Р»Р°РІР° 13]
 	cout << endl << "Containers section" << endl;
-	std::array<int, 10> static_array;		// массив постоянной длины
-	std::array<int, 3> arr{ 0, 10, 42 };	// фигурная инициализация
-	for (size_t i = 0; i < 10; i++)			// цикл для массива на основе индекса
+	std::array<int, 10> static_array;		// РјР°СЃСЃРёРІ РїРѕСЃС‚РѕСЏРЅРЅРѕР№ РґР»РёРЅС‹
+	std::array<int, 3> arr{ 0, 10, 42 };	// С„РёРіСѓСЂРЅР°СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
+	for (size_t i = 0; i < 10; i++)			// С†РёРєР» РґР»СЏ РјР°СЃСЃРёРІР° РЅР° РѕСЃРЅРѕРІРµ РёРЅРґРµРєСЃР°
 		static_array[i] = i * i;
-	for (auto it = static_array.begin(); it != static_array.end(); it++)		// цикл для массива на основе итераторов
+	for (auto it = static_array.begin(); it != static_array.end(); it++)		// С†РёРєР» РґР»СЏ РјР°СЃСЃРёРІР° РЅР° РѕСЃРЅРѕРІРµ РёС‚РµСЂР°С‚РѕСЂРѕРІ
 		cout << *it << " ";
 	cout << endl;
 	/*
-	методы begin() и end() у линейных контейнеров STL устроены так:
-	begin() возвращает итератор на 1й элемент, end() - на фиктивный элемент после последнего
+	РјРµС‚РѕРґС‹ begin() Рё end() Сѓ Р»РёРЅРµР№РЅС‹С… РєРѕРЅС‚РµР№РЅРµСЂРѕРІ STL СѓСЃС‚СЂРѕРµРЅС‹ С‚Р°Рє:
+	begin() РІРѕР·РІСЂР°С‰Р°РµС‚ РёС‚РµСЂР°С‚РѕСЂ РЅР° 1Р№ СЌР»РµРјРµРЅС‚, end() - РЅР° С„РёРєС‚РёРІРЅС‹Р№ СЌР»РµРјРµРЅС‚ РїРѕСЃР»Рµ РїРѕСЃР»РµРґРЅРµРіРѕ
 	 begin()	 end()
 	 |			 |
 	[-][-][-][-][ ]
 	 1  2  3  4
 	*/
-	for (int& i : arr)		// цикл для массива с использованием выражения диапазона
+	for (int& i : arr)		// С†РёРєР» РґР»СЏ РјР°СЃСЃРёРІР° СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј РІС‹СЂР°Р¶РµРЅРёСЏ РґРёР°РїР°Р·РѕРЅР°
 		cout << i << " ";
 	cout << endl;
 
-	std::vector<float> vec;								// массив переменной длины
-	if (vec.empty()) cout << "Vec is empty" << endl;	// empty определяет пустоту массива
-	std::vector<float> vec1{ 3, 4, 42.1 };				// фигурная инициализация
-	std::vector<float> vec2(vec1.begin(), vec1.end());	// копирование из диапазона, ограниченного 2мя итераторами
+	std::vector<float> vec;								// РјР°СЃСЃРёРІ РїРµСЂРµРјРµРЅРЅРѕР№ РґР»РёРЅС‹
+	if (vec.empty()) cout << "Vec is empty" << endl;	// empty РѕРїСЂРµРґРµР»СЏРµС‚ РїСѓСЃС‚РѕС‚Сѓ РјР°СЃСЃРёРІР°
+	std::vector<float> vec1{ 3, 4, 42.1 };				// С„РёРіСѓСЂРЅР°СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
+	std::vector<float> vec2(vec1.begin(), vec1.end());	// РєРѕРїРёСЂРѕРІР°РЅРёРµ РёР· РґРёР°РїР°Р·РѕРЅР°, РѕРіСЂР°РЅРёС‡РµРЅРЅРѕРіРѕ 2РјСЏ РёС‚РµСЂР°С‚РѕСЂР°РјРё
 
-	vec.push_back(42.1);						// добавление нового элемента
+	vec.push_back(42.1);						// РґРѕР±Р°РІР»РµРЅРёРµ РЅРѕРІРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
 	print_vector(vec, "Vec after push_back");
 
 	print_vector(vec2, "Vec2 before assign");
-	vec2.assign({ 0.1, 0.2, 0.3 });				// замена содержимого новым списком инициализации
+	vec2.assign({ 0.1, 0.2, 0.3 });				// Р·Р°РјРµРЅР° СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РЅРѕРІС‹Рј СЃРїРёСЃРєРѕРј РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
 	print_vector(vec2, "Vec2 after assign");
 
 	print_vector(vec1, "Vec1 before insert");
-	vec1.insert(vec1.begin() + 1, 33);			// вставка на позицию перед элементом, на который указывает переданный итератор
+	vec1.insert(vec1.begin() + 1, 33);			// РІСЃС‚Р°РІРєР° РЅР° РїРѕР·РёС†РёСЋ РїРµСЂРµРґ СЌР»РµРјРµРЅС‚РѕРј, РЅР° РєРѕС‚РѕСЂС‹Р№ СѓРєР°Р·С‹РІР°РµС‚ РїРµСЂРµРґР°РЅРЅС‹Р№ РёС‚РµСЂР°С‚РѕСЂ
 	print_vector(vec1, "Vec1 after insert");
 
-	// [Lospinozo Часть 2 Глава 14]
-	cout << "Vec1 has size " << vec1.size() << " and length " << std::distance(vec1.begin(), vec1.end()) << endl;		// distance вычисляет расстояние между двумя непрерывными итераторами
-	auto iterFour = std::find(vec1.begin(), vec1.end(), 4);																// find ищет элемент в области между указанными итераторами (функция универсальна)
-	cout << "In vec1 4 has index " << std::distance(vec1.begin(), iterFour) << endl;									// можно использовать для определения индекса элемента, если есть итератор, указывающий на него
+	// [Lospinozo Р§Р°СЃС‚СЊ 2 Р“Р»Р°РІР° 14]
+	cout << "Vec1 has size " << vec1.size() << " and length " << std::distance(vec1.begin(), vec1.end()) << endl;		// distance РІС‹С‡РёСЃР»СЏРµС‚ СЂР°СЃСЃС‚РѕСЏРЅРёРµ РјРµР¶РґСѓ РґРІСѓРјСЏ РЅРµРїСЂРµСЂС‹РІРЅС‹РјРё РёС‚РµСЂР°С‚РѕСЂР°РјРё
+	auto iterFour = std::find(vec1.begin(), vec1.end(), 4);																// find РёС‰РµС‚ СЌР»РµРјРµРЅС‚ РІ РѕР±Р»Р°СЃС‚Рё РјРµР¶РґСѓ СѓРєР°Р·Р°РЅРЅС‹РјРё РёС‚РµСЂР°С‚РѕСЂР°РјРё (С„СѓРЅРєС†РёСЏ СѓРЅРёРІРµСЂСЃР°Р»СЊРЅР°)
+	cout << "In vec1 4 has index " << std::distance(vec1.begin(), iterFour) << endl;									// РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ РёРЅРґРµРєСЃР° СЌР»РµРјРµРЅС‚Р°, РµСЃР»Рё РµСЃС‚СЊ РёС‚РµСЂР°С‚РѕСЂ, СѓРєР°Р·С‹РІР°СЋС‰РёР№ РЅР° РЅРµРіРѕ
 
-	std::vector<float> reversedVec1{ vec1.rbegin(), vec1.rend() };		// итераторы rbegin и rend предоставляют инверсивный диапазон
+	std::vector<float> reversedVec1{ vec1.rbegin(), vec1.rend() };		// РёС‚РµСЂР°С‚РѕСЂС‹ rbegin Рё rend РїСЂРµРґРѕСЃС‚Р°РІР»СЏСЋС‚ РёРЅРІРµСЂСЃРёРІРЅС‹Р№ РґРёР°РїР°Р·РѕРЅ
 	print_vector(reversedVec1, "Reversed Vec1");
 	/*
-	методы rbegin() и rend() у линейных контейнеров STL устроены так:
-	rend() возвращает итератор на 1й элемент, rbegin() - на фиктивный элемент после последнего
-	увеличение реверсивного итератора - это перемещение влево от rbegin к rend
+	РјРµС‚РѕРґС‹ rbegin() Рё rend() Сѓ Р»РёРЅРµР№РЅС‹С… РєРѕРЅС‚РµР№РЅРµСЂРѕРІ STL СѓСЃС‚СЂРѕРµРЅС‹ С‚Р°Рє:
+	rend() РІРѕР·РІСЂР°С‰Р°РµС‚ РёС‚РµСЂР°С‚РѕСЂ РЅР° 1Р№ СЌР»РµРјРµРЅС‚, rbegin() - РЅР° С„РёРєС‚РёРІРЅС‹Р№ СЌР»РµРјРµРЅС‚ РїРѕСЃР»Рµ РїРѕСЃР»РµРґРЅРµРіРѕ
+	СѓРІРµР»РёС‡РµРЅРёРµ СЂРµРІРµСЂСЃРёРІРЅРѕРіРѕ РёС‚РµСЂР°С‚РѕСЂР° - СЌС‚Рѕ РїРµСЂРµРјРµС‰РµРЅРёРµ РІР»РµРІРѕ РѕС‚ rbegin Рє rend
 	 rend()		 rbegin()
 	 |			 |
 	[-][-][-][-][ ]
 	 1  2  3  4
 	*/
 	std::vector<float> reversedVec2;
-	for (auto iter = vec2.rbegin(); iter < vec2.rend(); iter++)			// ввиду того, что для реверсивного оператора увеличение - это движение справа налево, синтаксис перебора не меняется
+	for (auto iter = vec2.rbegin(); iter < vec2.rend(); iter++)			// РІРІРёРґСѓ С‚РѕРіРѕ, С‡С‚Рѕ РґР»СЏ СЂРµРІРµСЂСЃРёРІРЅРѕРіРѕ РѕРїРµСЂР°С‚РѕСЂР° СѓРІРµР»РёС‡РµРЅРёРµ - СЌС‚Рѕ РґРІРёР¶РµРЅРёРµ СЃРїСЂР°РІР° РЅР°Р»РµРІРѕ, СЃРёРЅС‚Р°РєСЃРёСЃ РїРµСЂРµР±РѕСЂР° РЅРµ РјРµРЅСЏРµС‚СЃСЏ
 		reversedVec2.push_back(*iter);
 	print_vector(reversedVec2, "Reversed Vec2");
 
-	// [Lospinozo Часть 2 Глава 13]
+	// [Lospinozo Р§Р°СЃС‚СЊ 2 Р“Р»Р°РІР° 13]
 	std::vector dummiesLine{ dummy("First"), dummy("Second"), dummy("Third") };
 	print_dummies_vector(dummiesLine, "DummiesLine before emplace");
-	dummiesLine.emplace_back("Forth");								// emplace_back конструирует объект с переданными аргументами и вставляет его в конец
-	dummiesLine.emplace(dummiesLine.begin() + 1, "New Second");		// emplace конструирует объект с переданными аргументами и вставляет его перед элементом, на который указывает итератор
+	dummiesLine.emplace_back("Forth");								// emplace_back РєРѕРЅСЃС‚СЂСѓРёСЂСѓРµС‚ РѕР±СЉРµРєС‚ СЃ РїРµСЂРµРґР°РЅРЅС‹РјРё Р°СЂРіСѓРјРµРЅС‚Р°РјРё Рё РІСЃС‚Р°РІР»СЏРµС‚ РµРіРѕ РІ РєРѕРЅРµС†
+	dummiesLine.emplace(dummiesLine.begin() + 1, "New Second");		// emplace РєРѕРЅСЃС‚СЂСѓРёСЂСѓРµС‚ РѕР±СЉРµРєС‚ СЃ РїРµСЂРµРґР°РЅРЅС‹РјРё Р°СЂРіСѓРјРµРЅС‚Р°РјРё Рё РІСЃС‚Р°РІР»СЏРµС‚ РµРіРѕ РїРµСЂРµРґ СЌР»РµРјРµРЅС‚РѕРј, РЅР° РєРѕС‚РѕСЂС‹Р№ СѓРєР°Р·С‹РІР°РµС‚ РёС‚РµСЂР°С‚РѕСЂ
 	print_dummies_vector(dummiesLine, "DummiesLine after emplace");
 
-	std::set<int> s{ 1, 1, 2, 3, 5 };	// set (множество) - ассоциативный контейнер отсортированных уникальных ключей (модель данных - дерево)
-	print_set(s, "Set s");				// вторая 1 исчезла, т.к. значения уникальные
-	auto secIter = s.find(2);			// find ищет значение и возвращает итератор, указывающий на него
-	auto sixIter = s.find(6);			// поиск по упорядоченным элементам происходит быстро
+	std::set<int> s{ 1, 1, 2, 3, 5 };	// set (РјРЅРѕР¶РµСЃС‚РІРѕ) - Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹С… СѓРЅРёРєР°Р»СЊРЅС‹С… РєР»СЋС‡РµР№ (РјРѕРґРµР»СЊ РґР°РЅРЅС‹С… - РґРµСЂРµРІРѕ)
+	print_set(s, "Set s");				// РІС‚РѕСЂР°СЏ 1 РёСЃС‡РµР·Р»Р°, С‚.Рє. Р·РЅР°С‡РµРЅРёСЏ СѓРЅРёРєР°Р»СЊРЅС‹Рµ
+	auto secIter = s.find(2);			// find РёС‰РµС‚ Р·РЅР°С‡РµРЅРёРµ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ РёС‚РµСЂР°С‚РѕСЂ, СѓРєР°Р·С‹РІР°СЋС‰РёР№ РЅР° РЅРµРіРѕ
+	auto sixIter = s.find(6);			// РїРѕРёСЃРє РїРѕ СѓРїРѕСЂСЏРґРѕС‡РµРЅРЅС‹Рј СЌР»РµРјРµРЅС‚Р°Рј РїСЂРѕРёСЃС…РѕРґРёС‚ Р±С‹СЃС‚СЂРѕ
 	if (*secIter == 2) cout << "Found element 2" << endl;
 	if (sixIter == s.end()) cout << "6 is not found" << endl;
 
-	std::multiset<int> ms{ 1, 1, 2, 3, 5 };		// multiset - аналог set, допускающие неуникальные ключи
+	std::multiset<int> ms{ 1, 1, 2, 3, 5 };		// multiset - Р°РЅР°Р»РѕРі set, РґРѕРїСѓСЃРєР°СЋС‰РёРµ РЅРµСѓРЅРёРєР°Р»СЊРЅС‹Рµ РєР»СЋС‡Рё
 	cout << "In multiset " << ms.count(1) << " times present element 1" << endl;
 
-	// map - ассоциативный контейнер, хранящий пары ключ-значение; доступ к значению осуществляется по ключу (модель данных - дерево)
-	std::map<string, int> cyberspace{ {"Neuromancer", 1984}, {"Count Zero", 1986}, {"Mona Lisa Overdrive", 1988} };	// фигурная инициализация парами ключ-значение
-	cout << "First novel of Gibson's Cyberspace was published in " << cyberspace["Neuromancer"] << endl;			// для доступа можно использовать [], передавая ключ
-	cout << "Final Countdown was published in " << cyberspace["Final Countdown"] << endl;							// но если элемента нет, [] создаст его по умолчанию
+	// map - Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ, С…СЂР°РЅСЏС‰РёР№ РїР°СЂС‹ РєР»СЋС‡-Р·РЅР°С‡РµРЅРёРµ; РґРѕСЃС‚СѓРї Рє Р·РЅР°С‡РµРЅРёСЋ РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚СЃСЏ РїРѕ РєР»СЋС‡Сѓ (РјРѕРґРµР»СЊ РґР°РЅРЅС‹С… - РґРµСЂРµРІРѕ)
+	std::map<string, int> cyberspace{ {"Neuromancer", 1984}, {"Count Zero", 1986}, {"Mona Lisa Overdrive", 1988} };	// С„РёРіСѓСЂРЅР°СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РїР°СЂР°РјРё РєР»СЋС‡-Р·РЅР°С‡РµРЅРёРµ
+	cout << "First novel of Gibson's Cyberspace was published in " << cyberspace["Neuromancer"] << endl;			// РґР»СЏ РґРѕСЃС‚СѓРїР° РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ [], РїРµСЂРµРґР°РІР°СЏ РєР»СЋС‡
+	cout << "Final Countdown was published in " << cyberspace["Final Countdown"] << endl;							// РЅРѕ РµСЃР»Рё СЌР»РµРјРµРЅС‚Р° РЅРµС‚, [] СЃРѕР·РґР°СЃС‚ РµРіРѕ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 	try
 	{
-		cout << "Second novel of Gibson's Cyberspace was published in " << cyberspace.at("Count Zero") << endl;		// at также предоставляет доступ к значению по ключу
+		cout << "Second novel of Gibson's Cyberspace was published in " << cyberspace.at("Count Zero") << endl;		// at С‚Р°РєР¶Рµ РїСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ РґРѕСЃС‚СѓРї Рє Р·РЅР°С‡РµРЅРёСЋ РїРѕ РєР»СЋС‡Сѓ
 		cout << "Never existing novel of Gibson was published in";
-		cout << " " << cyberspace.at("Not A Final Countdown") << endl;			// однако, at выбрасывает исключение, если такого ключа нет
+		cout << " " << cyberspace.at("Not A Final Countdown") << endl;			// РѕРґРЅР°РєРѕ, at РІС‹Р±СЂР°СЃС‹РІР°РµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ, РµСЃР»Рё С‚Р°РєРѕРіРѕ РєР»СЋС‡Р° РЅРµС‚
 	}
 	catch (const std::out_of_range & err)
 	{
 		cout << "... Well, it was never published: " << err.what() << endl;
 	}
-	cyberspace.insert({ "Burning Chrome", 1982 });		// добавление элемента
-	cyberspace.erase("Final Countdown");				// удаление элемента (также можно передать итератор)
+	cyberspace.insert({ "Burning Chrome", 1982 });		// РґРѕР±Р°РІР»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р°
+	cyberspace.erase("Final Countdown");				// СѓРґР°Р»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° (С‚Р°РєР¶Рµ РјРѕР¶РЅРѕ РїРµСЂРµРґР°С‚СЊ РёС‚РµСЂР°С‚РѕСЂ)
 
-	// [Lospinozo Часть 2 Глава 15]
+	// [Lospinozo Р§Р°СЃС‚СЊ 2 Р“Р»Р°РІР° 15]
 	cout << endl << "String section" << endl;
 	string owlbear("owlbear");
-	string owl(owlbear, 0, 3);		// создание подстроки: исходная строка, индекс начала, длина
-	string bear(owlbear, 3);		// создание подстроки от данной позиции до конца: исходная строка, индекс начала
+	string owl(owlbear, 0, 3);		// СЃРѕР·РґР°РЅРёРµ РїРѕРґСЃС‚СЂРѕРєРё: РёСЃС…РѕРґРЅР°СЏ СЃС‚СЂРѕРєР°, РёРЅРґРµРєСЃ РЅР°С‡Р°Р»Р°, РґР»РёРЅР°
+	string bear(owlbear, 3);		// СЃРѕР·РґР°РЅРёРµ РїРѕРґСЃС‚СЂРѕРєРё РѕС‚ РґР°РЅРЅРѕР№ РїРѕР·РёС†РёРё РґРѕ РєРѕРЅС†Р°: РёСЃС…РѕРґРЅР°СЏ СЃС‚СЂРѕРєР°, РёРЅРґРµРєСЃ РЅР°С‡Р°Р»Р°
 	cout << owlbear << " = " << owl << " + " << bear << endl;
-	string ans = to_string(42);		// перевод числа в строку
+	string ans = to_string(42);		// РїРµСЂРµРІРѕРґ С‡РёСЃР»Р° РІ СЃС‚СЂРѕРєСѓ
 	int iAns = std::stoi(ans);
-	string raw(R"(Literal \t with spec symbols \0 \n \hello"\world"\)");		// R"()" заставляет игнорировать спец. символы
+	string raw(R"(Literal \t with spec symbols \0 \n \hello"\world"\)");		// R"()" Р·Р°СЃС‚Р°РІР»СЏРµС‚ РёРіРЅРѕСЂРёСЂРѕРІР°С‚СЊ СЃРїРµС†. СЃРёРјРІРѕР»С‹
 	cout << "Raw string: " << raw << endl;
-	// все остальные методы для манипулирования строками см. в [Lospinozo Часть 2 Глава 15]
+	// РІСЃРµ РѕСЃС‚Р°Р»СЊРЅС‹Рµ РјРµС‚РѕРґС‹ РґР»СЏ РјР°РЅРёРїСѓР»РёСЂРѕРІР°РЅРёСЏ СЃС‚СЂРѕРєР°РјРё СЃРј. РІ [Lospinozo Р§Р°СЃС‚СЊ 2 Р“Р»Р°РІР° 15]
 
-	// [Lospinozo Часть 2 Глава 16]
+	// [Lospinozo Р§Р°СЃС‚СЊ 2 Р“Р»Р°РІР° 16]
 	cout << endl << "Streams section" << endl;
-	// средства манипулирования форматом вывода у потока
+	// СЃСЂРµРґСЃС‚РІР° РјР°РЅРёРїСѓР»РёСЂРѕРІР°РЅРёСЏ С„РѕСЂРјР°С‚РѕРј РІС‹РІРѕРґР° Сѓ РїРѕС‚РѕРєР°
 	cout << "Gotham needs its " << std::boolalpha << true << " hero.";
 	cout << "\nMark it " << std::noboolalpha << false << "!";
 	cout << "\nThere are " << 69 << "," << std::oct << 105 << " leaves in here.";
@@ -458,17 +458,17 @@ int main()
 		<< 0x1000 << endl;
 
 	auto intro = std::ifstream("introspection.txt");
-	cout << "Contents: " << intro.rdbuf() << endl;										// rdbuf передает буфер целиком
-	intro.seekg(0);																		// seekg переводит каретку на указанную позицию
+	cout << "Contents: " << intro.rdbuf() << endl;										// rdbuf РїРµСЂРµРґР°РµС‚ Р±СѓС„РµСЂ С†РµР»РёРєРѕРј
+	intro.seekg(0);																		// seekg РїРµСЂРµРІРѕРґРёС‚ РєР°СЂРµС‚РєСѓ РЅР° СѓРєР°Р·Р°РЅРЅСѓСЋ РїРѕР·РёС†РёСЋ
 	cout << "Contents after seekg(0): " << intro.rdbuf() << endl;
-	intro.seekg(-4, std::ios_base::end);												// seekg с двумя аргументами - смещение и точка отсчета
-	cout << "tellg() after seekg(-4, ios_base::end): " << intro.tellg() << endl;		// tellg дает текущую позицию каретки
+	intro.seekg(-4, std::ios_base::end);												// seekg СЃ РґРІСѓРјСЏ Р°СЂРіСѓРјРµРЅС‚Р°РјРё - СЃРјРµС‰РµРЅРёРµ Рё С‚РѕС‡РєР° РѕС‚СЃС‡РµС‚Р°
+	cout << "tellg() after seekg(-4, ios_base::end): " << intro.tellg() << endl;		// tellg РґР°РµС‚ С‚РµРєСѓС‰СѓСЋ РїРѕР·РёС†РёСЋ РєР°СЂРµС‚РєРё
 	cout << "Contents after seekg(-4, ios_base::end): " << intro.rdbuf() << endl;
 
-	// [Lospinozo Часть 2 Глава 17]
+	// [Lospinozo Р§Р°СЃС‚СЊ 2 Р“Р»Р°РІР° 17]
 	cout << endl << "Filesystem section" << endl;
-	const std::filesystem::path kernel32{ R"(C:\Windows\System32\kernel32.dll)" };		// платформонезависимое представление пути
-	cout << "Root name: " << kernel32.root_name()					// получение различных частей (декомпозиция) пути
+	const std::filesystem::path kernel32{ R"(C:\Windows\System32\kernel32.dll)" };		// РїР»Р°С‚С„РѕСЂРјРѕРЅРµР·Р°РІРёСЃРёРјРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РїСѓС‚Рё
+	cout << "Root name: " << kernel32.root_name()					// РїРѕР»СѓС‡РµРЅРёРµ СЂР°Р·Р»РёС‡РЅС‹С… С‡Р°СЃС‚РµР№ (РґРµРєРѕРјРїРѕР·РёС†РёСЏ) РїСѓС‚Рё
 		<< "\nRoot directory: " << kernel32.root_directory()
 		<< "\nRoot path: " << kernel32.root_path()
 		<< "\nRelative path: " << kernel32.relative_path()
@@ -478,44 +478,44 @@ int main()
 		<< "\nExtension: " << kernel32.extension()
 		<< endl << endl;
 
-	fs::path path{ R"(C:/Windows/System32/kernel32.dll)" };		// модификация пути
+	fs::path path{ R"(C:/Windows/System32/kernel32.dll)" };		// РјРѕРґРёС„РёРєР°С†РёСЏ РїСѓС‚Рё
 	cout << path << endl;
-	path.make_preferred();										// изменение разделителей на предпочтительные для ОС
+	path.make_preferred();										// РёР·РјРµРЅРµРЅРёРµ СЂР°Р·РґРµР»РёС‚РµР»РµР№ РЅР° РїСЂРµРґРїРѕС‡С‚РёС‚РµР»СЊРЅС‹Рµ РґР»СЏ РћРЎ
 	cout << path << endl;
-	path.replace_extension(".txt");								// замена расширения
+	path.replace_extension(".txt");								// Р·Р°РјРµРЅР° СЂР°СЃС€РёСЂРµРЅРёСЏ
 	cout << path << endl;
-	path.replace_filename("win32kfull.sys");					// замена имени файла
+	path.replace_filename("win32kfull.sys");					// Р·Р°РјРµРЅР° РёРјРµРЅРё С„Р°Р№Р»Р°
 	cout << path << endl;
-	path.remove_filename();										// удаление имени файла
+	path.remove_filename();										// СѓРґР°Р»РµРЅРёРµ РёРјРµРЅРё С„Р°Р№Р»Р°
 	cout << path << endl;
-	path = path / "REAMDE";										// конкатенация путей
+	path = path / "REAMDE";										// РєРѕРЅРєР°С‚РµРЅР°С†РёСЏ РїСѓС‚РµР№
 	cout << path << endl;
 	path.clear();
 	cout << "Is empty: " << std::boolalpha << path.empty() << endl << endl;
 
-	const auto temp_path = fs::temp_directory_path();						// системная директория для временных файлов
+	const auto temp_path = fs::temp_directory_path();						// СЃРёСЃС‚РµРјРЅР°СЏ РґРёСЂРµРєС‚РѕСЂРёСЏ РґР»СЏ РІСЂРµРјРµРЅРЅС‹С… С„Р°Р№Р»РѕРІ
 	try
 	{
-		const auto relative = fs::relative(temp_path);							// получить относительный путь относительно текущей директории
+		const auto relative = fs::relative(temp_path);							// РїРѕР»СѓС‡РёС‚СЊ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅС‹Р№ РїСѓС‚СЊ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ С‚РµРєСѓС‰РµР№ РґРёСЂРµРєС‚РѕСЂРёРё
 		cout << std::boolalpha
 			<< "Temporary directory path: " << temp_path
-			<< "\nTemporary directory absolute: " << temp_path.is_absolute()	// проверка, является ли путь абсолютным
-			<< "\nCurrent path: " << fs::current_path()							// текущая директория
+			<< "\nTemporary directory absolute: " << temp_path.is_absolute()	// РїСЂРѕРІРµСЂРєР°, СЏРІР»СЏРµС‚СЃСЏ Р»Рё РїСѓС‚СЊ Р°Р±СЃРѕР»СЋС‚РЅС‹Рј
+			<< "\nCurrent path: " << fs::current_path()							// С‚РµРєСѓС‰Р°СЏ РґРёСЂРµРєС‚РѕСЂРёСЏ
 			<< "\nTemporary directory's relative path: " << relative
 			<< "\nRelative directory absolute: " << relative.is_absolute()
 			<< "\nChanging current directory to temp.";
-		fs::current_path(temp_path);											// установка текущей директории
+		fs::current_path(temp_path);											// СѓСЃС‚Р°РЅРѕРІРєР° С‚РµРєСѓС‰РµР№ РґРёСЂРµРєС‚РѕСЂРёРё
 		cout << "\nCurrent directory: " << fs::current_path() << endl;
 	}
 	catch (const std::exception & e)
 	{
-		std::cerr << "Error: " << e.what();				// эти функции могут выбросить ошибку, если ОС не поддерживает операцию
+		std::cerr << "Error: " << e.what();				// СЌС‚Рё С„СѓРЅРєС†РёРё РјРѕРіСѓС‚ РІС‹Р±СЂРѕСЃРёС‚СЊ РѕС€РёР±РєСѓ, РµСЃР»Рё РћРЎ РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚ РѕРїРµСЂР°С†РёСЋ
 	}
 
 	cout << endl << std::boolalpha << "Path: " << kernel32 << endl;
-	cout << "Is directory: " << fs::is_directory(kernel32) << endl;			// указывает ли путь на директорию
-	cout << "Is regular file: " << fs::is_regular_file(kernel32) << endl;	// является ли файл обычным
-	cout << "Is empty: " << fs::is_empty(kernel32) << endl;					// является ли пустым файлом или каталогом
+	cout << "Is directory: " << fs::is_directory(kernel32) << endl;			// СѓРєР°Р·С‹РІР°РµС‚ Р»Рё РїСѓС‚СЊ РЅР° РґРёСЂРµРєС‚РѕСЂРёСЋ
+	cout << "Is regular file: " << fs::is_regular_file(kernel32) << endl;	// СЏРІР»СЏРµС‚СЃСЏ Р»Рё С„Р°Р№Р» РѕР±С‹С‡РЅС‹Рј
+	cout << "Is empty: " << fs::is_empty(kernel32) << endl;					// СЏРІР»СЏРµС‚СЃСЏ Р»Рё РїСѓСЃС‚С‹Рј С„Р°Р№Р»РѕРј РёР»Рё РєР°С‚Р°Р»РѕРіРѕРј
 
 	cout << endl << "Is kernel32 equal to path: " << std::boolalpha << fs::equivalent(kernel32, temp_path) << endl;
 	cout << "Does kernel32 exists: " << fs::exists(kernel32) << endl;
@@ -527,9 +527,9 @@ int main()
 	cout << "Space available: " << space.available << endl;
 	cout << "Space capacity: " << space.capacity << endl;
 	cout << "Space free: " << space.free << endl;
-	// про манипуляции с файловой системой см. [Lospinozo Часть 2 Глава 17]
+	// РїСЂРѕ РјР°РЅРёРїСѓР»СЏС†РёРё СЃ С„Р°Р№Р»РѕРІРѕР№ СЃРёСЃС‚РµРјРѕР№ СЃРј. [Lospinozo Р§Р°СЃС‚СЊ 2 Р“Р»Р°РІР° 17]
 
-	// обход директории
+	// РѕР±С…РѕРґ РґРёСЂРµРєС‚РѕСЂРёРё
 	const fs::path sys_path{ R"(C:\\Windows\\)" };
 	cout << endl << "Size Last Write Name\n";
 	cout << "------------ ----------- ------------\n";

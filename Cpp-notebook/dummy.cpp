@@ -1,8 +1,8 @@
-#include "dummy.h"
+п»ї#include "dummy.h"
 
-// int dummy::count = 0;		// инициализация статического члена класса (если объявление без слова inline)
+// int dummy::count = 0;		// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃС‚Р°С‚РёС‡РµСЃРєРѕРіРѕ С‡Р»РµРЅР° РєР»Р°СЃСЃР° (РµСЃР»Рё РѕР±СЉСЏРІР»РµРЅРёРµ Р±РµР· СЃР»РѕРІР° inline)
 
-dummy::dummy() : x{ 0 }, y{ 0 }, name{ "dummy" }		// список инициализации: инициализация членов вне тела конструктора
+dummy::dummy() : x{ 0 }, y{ 0 }, name{ "dummy" }		// СЃРїРёСЃРѕРє РёРЅРёС†РёР°Р»РёР·Р°С†РёРё: РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ С‡Р»РµРЅРѕРІ РІРЅРµ С‚РµР»Р° РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 {
 	num = count++;
 	cout << report() << " constructed empty" << endl;
@@ -49,7 +49,7 @@ dummy::dummy(dummy&& other) noexcept
 	name = other.name + "-moved";
 	num = other.num;
 
-	// очищаем other
+	// РѕС‡РёС‰Р°РµРј other
 	other.x = 0;
 	other.y = 0;
 	other.name = "deleted";
@@ -67,7 +67,7 @@ dummy& dummy::operator=(dummy&& other) noexcept
 		name = other.name + "-moved";
 		num = other.num;
 
-		// очищаем other
+		// РѕС‡РёС‰Р°РµРј other
 		other.x = 0;
 		other.y = 0;
 		other.name = "deleted";
@@ -93,17 +93,17 @@ dummy::~dummy()
 	cout << report() << " destructed" << endl;
 }
 
-int dummy::getX() const		// const-метод
+int dummy::getX() const		// const-РјРµС‚РѕРґ
 {
 	return x;
 }
 
-int dummy::getY() const		// const-метод
+int dummy::getY() const		// const-РјРµС‚РѕРґ
 {
 	return y;
 }
 
-const string dummy::getName() const		// const-метод, возвращающий const значение string
+const string dummy::getName() const		// const-РјРµС‚РѕРґ, РІРѕР·РІСЂР°С‰Р°СЋС‰РёР№ const Р·РЅР°С‡РµРЅРёРµ string
 {
 	return name;
 }
@@ -124,7 +124,7 @@ void dummy::set(int ix, int iy)
 	y = iy;
 }
 
-int dummy::ratio() const	// генерирует исключение
+int dummy::ratio() const	// РіРµРЅРµСЂРёСЂСѓРµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ
 {
 	if (y == 0) throw std::logic_error("Division by zero");
 	else return x / y;
@@ -135,13 +135,13 @@ result dummy::check_ratio() const
 	int res = ratio();
 	bool isCorrect = true;
 	if (res * y != x) isCorrect = false;
-	return { res, isCorrect };		// упаковка результатов в POD
+	return { res, isCorrect };		// СѓРїР°РєРѕРІРєР° СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РІ POD
 }
 
 void dummy::takeAction()
 {
 	cout << report() << " taking Action: ";
-	if (action) action();		// вызов std::function производится как обычно (вызовет исключение std::bad_function_call, если будет пустым)
+	if (action) action();		// РІС‹Р·РѕРІ std::function РїСЂРѕРёР·РІРѕРґРёС‚СЃСЏ РєР°Рє РѕР±С‹С‡РЅРѕ (РІС‹Р·РѕРІРµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ std::bad_function_call, РµСЃР»Рё Р±СѓРґРµС‚ РїСѓСЃС‚С‹Рј)
 }
 
 string dummy::report() const

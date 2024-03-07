@@ -1,12 +1,12 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 #include <string>
-#include <stdexcept>		// для классов-исключений
-#include <functional>		// ссылки на функции
+#include <stdexcept>		// РґР»СЏ РєР»Р°СЃСЃРѕРІ-РёСЃРєР»СЋС‡РµРЅРёР№
+#include <functional>		// СЃСЃС‹Р»РєРё РЅР° С„СѓРЅРєС†РёРё
 
-using std::string, std::to_string, std::cout, std::endl, std::move; 	// добавление отдельных символов из namespace
+using std::string, std::to_string, std::cout, std::endl, std::move; 	// РґРѕР±Р°РІР»РµРЅРёРµ РѕС‚РґРµР»СЊРЅС‹С… СЃРёРјРІРѕР»РѕРІ РёР· namespace
 
-struct result		// POD-объект для проверки статуса
+struct result		// POD-РѕР±СЉРµРєС‚ РґР»СЏ РїСЂРѕРІРµСЂРєРё СЃС‚Р°С‚СѓСЃР°
 {
 	int res;
 	bool success;
@@ -18,47 +18,47 @@ public:
 	dummy();
 	dummy(string iName);
 	dummy(int ix, int iy, string iName);
-	dummy(const dummy& other);							// конструктор копирования
+	dummy(const dummy& other);							// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 	dummy& operator=(const dummy& other);
-	//dummy& operator=(const dummy& other) = delete;	// запрет использования оператора присваивания (нужно также запрещать конструктор копирования)
-	dummy(dummy&& other) noexcept;						// конструктор перемещения (noexept строго рекомендуется)
+	//dummy& operator=(const dummy& other) = delete;	// Р·Р°РїСЂРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РѕРїРµСЂР°С‚РѕСЂР° РїСЂРёСЃРІР°РёРІР°РЅРёСЏ (РЅСѓР¶РЅРѕ С‚Р°РєР¶Рµ Р·Р°РїСЂРµС‰Р°С‚СЊ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ)
+	dummy(dummy&& other) noexcept;						// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРµСЂРµРјРµС‰РµРЅРёСЏ (noexept СЃС‚СЂРѕРіРѕ СЂРµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ)
 	dummy& operator=(dummy&& other) noexcept;
-	//dummy& operator=(dummy&& other) = delete;			// запрет использования оператора перемещения (нужно также запрещать конструктор перемещения)
+	//dummy& operator=(dummy&& other) = delete;			// Р·Р°РїСЂРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РѕРїРµСЂР°С‚РѕСЂР° РїРµСЂРµРјРµС‰РµРЅРёСЏ (РЅСѓР¶РЅРѕ С‚Р°РєР¶Рµ Р·Р°РїСЂРµС‰Р°С‚СЊ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРµСЂРµРјРµС‰РµРЅРёСЏ)
 	void operator()() const;
 	void operator()(string str) const;
 	~dummy();
 
-	int getX() const;						// const-метод
-	int getY() const;						// const-метод
-	const std::string getName() const;		// const-метод, возвращающий const значение string
+	int getX() const;						// const-РјРµС‚РѕРґ
+	int getY() const;						// const-РјРµС‚РѕРґ
+	const std::string getName() const;		// const-РјРµС‚РѕРґ, РІРѕР·РІСЂР°С‰Р°СЋС‰РёР№ const Р·РЅР°С‡РµРЅРёРµ string
 
 	void setX(int ix);
 	void setY(int iy);
 	void set(int ix, int iy);
 
-	int ratio() const;			// генерирует исключение
-	result check_ratio() const;	// возвращает и результат, и статус
+	int ratio() const;			// РіРµРЅРµСЂРёСЂСѓРµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ
+	result check_ratio() const;	// РІРѕР·РІСЂР°С‰Р°РµС‚ Рё СЂРµР·СѓР»СЊС‚Р°С‚, Рё СЃС‚Р°С‚СѓСЃ
 
 	void takeAction();
 	string report() const;
 
 	template <typename fn, typename T>
-	void makeCustomReport(fn func, T x);					// можем объявить шаблонную функцию, чтобы работать с любыми функциями на входе
+	void makeCustomReport(fn func, T x);					// РјРѕР¶РµРј РѕР±СЉСЏРІРёС‚СЊ С€Р°Р±Р»РѕРЅРЅСѓСЋ С„СѓРЅРєС†РёСЋ, С‡С‚РѕР±С‹ СЂР°Р±РѕС‚Р°С‚СЊ СЃ Р»СЋР±С‹РјРё С„СѓРЅРєС†РёСЏРјРё РЅР° РІС…РѕРґРµ
 	
-	std::function<void()> action = nullptr;					// ссылка на функцию, возвращающую void и не принимающую аргументов
-	std::function<int(int, int)> distance = nullptr;		// ссылка на функцию, возвращающую int и принимающую как аргументы 2 int
+	std::function<void()> action = nullptr;					// СЃСЃС‹Р»РєР° РЅР° С„СѓРЅРєС†РёСЋ, РІРѕР·РІСЂР°С‰Р°СЋС‰СѓСЋ void Рё РЅРµ РїСЂРёРЅРёРјР°СЋС‰СѓСЋ Р°СЂРіСѓРјРµРЅС‚РѕРІ
+	std::function<int(int, int)> distance = nullptr;		// СЃСЃС‹Р»РєР° РЅР° С„СѓРЅРєС†РёСЋ, РІРѕР·РІСЂР°С‰Р°СЋС‰СѓСЋ int Рё РїСЂРёРЅРёРјР°СЋС‰СѓСЋ РєР°Рє Р°СЂРіСѓРјРµРЅС‚С‹ 2 int
 
 private:
 	int x;
 	int y;
 	string name;
-	// static int count;			// статический член класса - один на всех (инициализируется в .cpp)
-	static inline int count = 0;	// статический член класса - может быть проинициализирован в объявлении класса при наличии слова inline
+	// static int count;			// СЃС‚Р°С‚РёС‡РµСЃРєРёР№ С‡Р»РµРЅ РєР»Р°СЃСЃР° - РѕРґРёРЅ РЅР° РІСЃРµС… (РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚СЃСЏ РІ .cpp)
+	static inline int count = 0;	// СЃС‚Р°С‚РёС‡РµСЃРєРёР№ С‡Р»РµРЅ РєР»Р°СЃСЃР° - РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСЂРѕРёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ РІ РѕР±СЉСЏРІР»РµРЅРёРё РєР»Р°СЃСЃР° РїСЂРё РЅР°Р»РёС‡РёРё СЃР»РѕРІР° inline
 	int num;
 };
 
 template<typename fn, typename T>
-inline void dummy::makeCustomReport(fn func, T x)		// шаблонированные функции обязаны находиться в .h
+inline void dummy::makeCustomReport(fn func, T x)		// С€Р°Р±Р»РѕРЅРёСЂРѕРІР°РЅРЅС‹Рµ С„СѓРЅРєС†РёРё РѕР±СЏР·Р°РЅС‹ РЅР°С…РѕРґРёС‚СЊСЃСЏ РІ .h
 {
 	cout << report() << " ";
 	func(x);
